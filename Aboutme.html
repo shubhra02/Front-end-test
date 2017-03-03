@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" media="screen" title="no title">
+  </head>
+  <script  src="https://code.jquery.com/jquery-3.1.1.min.js"  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <body>
+    <div class="container text-center" id="container" style="background-color:lightblue;">
+      <div>
+        <button class="btn btn-primary" id="get-data">
+        <span class="glyphicon glyphicon-search"></span>Search User's Data
+        </button>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-10 col-sm-8 col-md-7">
+          <h3 id="user-id"></h3>
+        </div>
+        <div class="col-xs-10 col-sm-8 col-md-7">
+          <p id="user-name"></p>
+        </div>
+        <div class="col-xs-10 col-sm-8 col-md-7">
+          <p id="user-description"></p>
+        </div>
+        <div class="col-xs-10 col-sm-8 col-md-7">
+          <p id="user-jetpack"></p>
+        </div>
+        <div class="col-xs-10 col-sm-8 col-md-7">
+          <p id="url"></p>
+        </div>
+        <div class="col-xs-10 col-sm-8 col-md-7">
+          <p id="subscriber"></p>
+        </div>
+   </div>
+    <script>
+      $(document).ajaxStart(function(){
+      
+      }).ajaxStop(function(){
+        console.log("Ajax Stopped.")
+      }).ajaxSuccess(function(){
+        console.log("Ajax Success")
+      }).ajaxComplete(function(){
+        console.log("Ajax Completed")
+      })
+
+      $("#get-data").on("click",function(){
+        $.ajax({
+          url:"https://public-api.wordpress.com/rest/v1/sites/dotnetask.wordpress.com",
+          success: function(data){
+            console.log(data)
+            
+            $("#user-id").text("User id is : "+data.ID);
+            $("#user-name").text("User name is : "+data.name);
+            $("#user-description").text("User's description is : "+data.description);
+            $("#user-jetpack").text("User's jetpack is : "+data.jetpack);
+            $("#url").text("User's jetpack is : "+data.URL);
+            $("#subscriber").text("Number of subscribers are : "+data.subscribers_count);
+          },
+          error: function(){
+            $("#user-image").attr("src","person-solid.png");
+            $("#user-name").text("User not found");
+          }
+        })
+      })
+    </script>
+  </body>
+</html>
